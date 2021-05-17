@@ -1,0 +1,10 @@
+This repo is a hodgepodge of code from josdejong/mathjs, ericman314/UnitMath,
+infusion/Complex.js, infusion/Fraction.js, infusion/Quaternion.js, infusion/Polynomial.js,
+MikeMcl/decimal.js. All of these are available on GitHub under MIT or Apache 2.0.
+All original code is CC Zero 1.0.
+
+If you want to use this repo directly, there are two options:
+ 1) don't
+ 2) sort out the legal stuff yourself haha
+
+Sorry :^)
