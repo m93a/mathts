@@ -883,10 +883,10 @@
     "@babel/helper-validator-identifier" "^7.14.0"
     to-fast-properties "^2.0.0"
 
-"@m93a/arithmetic-types@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@m93a/arithmetic-types/-/arithmetic-types-0.0.2.tgz#d410ac5fe468069c5cc3fc05edb7745a7a73761c"
-  integrity sha512-dfzTb06CIrf23LERsbB+e0imW93jGkuVGDSBkPhbcGwurW0d2YyX0gokM9wztBgCO905dUVzZbSPlV3UIwYs3A==
+"@m93a/arithmetic-types@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@m93a/arithmetic-types/-/arithmetic-types-0.0.4.tgz#34d44e340e9f854ca860c1e059d7b716345e6a07"
+  integrity sha512-pgiylVaiwsLKA9d5AxuGYzmJMDYfovNPXoJx2hKTtt7KzhfBYlnXZMIf47F0k7+y8I4PPnCn9bjUSPeQ0tI5Iw==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents":
   version "2.1.8-no-fsevents"

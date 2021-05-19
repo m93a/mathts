@@ -21,6 +21,6 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@m93a/arithmetic-types": "^0.0.2"
+    "@m93a/arithmetic-types": "^0.0.4"
   }
 }

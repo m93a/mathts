@@ -5,11 +5,13 @@
  * Dual licensed under the MIT or GPL Version 2 licenses.
  **/
 
-const cosh = function(x: number) {
+import { symbols, NormedDivisionRing, InstanceOf } from '@m93a/arithmetic-types'
+
+function cosh(x: number) {
     return (Math.exp(x) + Math.exp(-x)) * 0.5;
 };
 
-const sinh = function(x: number) {
+function sinh(x: number) {
     return (Math.exp(x) - Math.exp(-x)) * 0.5;
 };
 
@@ -19,7 +21,7 @@ const sinh = function(x: number) {
  * @param {number} x
  * @returns {number} cos(x) - 1
  */
-const cosm1 = function(x: number) {
+function cosm1(x: number) {
 
     var b = Math.PI / 4;
     if (-b > x || x > b) {
@@ -40,41 +42,41 @@ const cosm1 = function(x: number) {
 
     var xx = x * x;
     return xx * (
-    xx * (
         xx * (
-        xx * (
-            xx * (
             xx * (
                 xx * (
-                xx / 20922789888000
-                - 1 / 87178291200)
-                + 1 / 479001600)
-            - 1 / 3628800)
-            + 1 / 40320)
-        - 1 / 720)
-        + 1 / 24)
-    - 1 / 2);
+                    xx * (
+                        xx * (
+                            xx * (
+                                xx / 20922789888000
+                                - 1 / 87178291200)
+                            + 1 / 479001600)
+                        - 1 / 3628800)
+                    + 1 / 40320)
+                - 1 / 720)
+            + 1 / 24)
+        - 1 / 2);
 };
 
-const hypot = function(x: number, y: number) {
+function hypot(x: number, y: number) {
 
     var a = Math.abs(x);
     var b = Math.abs(y);
 
     if (a < 3000 && b < 3000) {
-    return Math.sqrt(a * a + b * b);
+        return Math.sqrt(a * a + b * b);
     }
 
     if (a < b) {
-    a = b;
-    b = x / y;
+        a = b;
+        b = x / y;
     } else {
-    b = y / x;
+        b = y / x;
     }
     return a * Math.sqrt(1 + b * b);
 };
 
-var parser_exit = function() {
+function parserExit() {
     throw SyntaxError('Invalid Param');
 };
 
@@ -179,7 +181,7 @@ function parse(a?: any, b?: any): { re: number, im: number } {
                 z.re = a[0];
                 z.im = a[1];
             } else {
-                parser_exit();
+                parserExit();
             }
             break;
 
@@ -193,7 +195,7 @@ function parse(a?: any, b?: any): { re: number, im: number } {
             let minus = 0;
 
             if (tokens === null) {
-                parser_exit();
+                parserExit();
             }
 
             for (var i = 0; i < tokens.length; i++) {
@@ -209,7 +211,7 @@ function parse(a?: any, b?: any): { re: number, im: number } {
                 } else if (c === 'i' || c === 'I') {
 
                     if (plus + minus === 0) {
-                        parser_exit();
+                        parserExit();
                     }
 
                     if (tokens[i + 1] !== ' ' && !isNaN(+tokens[i + 1])) {
@@ -223,7 +225,7 @@ function parse(a?: any, b?: any): { re: number, im: number } {
                 } else {
 
                     if (plus + minus === 0 || isNaN(+c)) {
-                        parser_exit();
+                        parserExit();
                     }
 
                     if (tokens[i + 1] === 'i' || tokens[i + 1] === 'I') {
@@ -238,7 +240,7 @@ function parse(a?: any, b?: any): { re: number, im: number } {
 
             // Still something on the stack
             if (plus + minus > 0) {
-                parser_exit();
+                parserExit();
             }
         break;
 
@@ -248,7 +250,7 @@ function parse(a?: any, b?: any): { re: number, im: number } {
             break;
 
         default:
-            parser_exit();
+            parserExit();
     }
 
     if (isNaN(z.re) || isNaN(z.im)) {
@@ -259,7 +261,13 @@ function parse(a?: any, b?: any): { re: number, im: number } {
     return z;
 };
 
-export class Complex {
+
+export class Complex
+implements InstanceOf<NormedDivisionRing<Complex, number>> {
+
+    [symbols.Arithmetics] = ComplexArithmetics
+
+
     constructor(z: { re: number, im: number })
     constructor(z: { r: number, phi: number })
     constructor(re: number, im: number)
@@ -311,6 +319,7 @@ export class Complex {
      * @returns {Complex}
      */
 
+    add(z: Complex): Complex
     add(z: { re: number, im: number }): Complex
     add(z: { r: number, phi: number }): Complex
     add(re: number, im: number): Complex
@@ -343,6 +352,7 @@ export class Complex {
      * @returns {Complex}
      */
 
+    sub(z: Complex): Complex
     sub(z: { re: number, im: number }): Complex
     sub(z: { r: number, phi: number }): Complex
     sub(re: number, im: number): Complex
@@ -374,6 +384,7 @@ export class Complex {
      * @returns {Complex}
      */
 
+    mul(z: Complex): Complex
     mul(z: { re: number, im: number }): Complex
     mul(z: { r: number, phi: number }): Complex
     mul(re: number, im: number): Complex
@@ -410,6 +421,7 @@ export class Complex {
      * @returns {Complex}
      */
 
+    div(z: Complex): Complex
     div(z: { re: number, im: number }): Complex
     div(z: { r: number, phi: number }): Complex
     div(re: number, im: number): Complex
@@ -474,6 +486,7 @@ export class Complex {
      * @returns {Complex}
      */
 
+    pow(z: Complex): Complex
     pow(z: { re: number, im: number }): Complex
     pow(z: { r: number, phi: number }): Complex
     pow(re: number, im: number): Complex
@@ -1229,6 +1242,7 @@ export class Complex {
      * @returns {boolean}
      */
 
+    equals(z: Complex): boolean
     equals(z: { re: number, im: number }): boolean
     equals(z: { r: number, phi: number }): boolean
     equals(re: number, im: number): boolean
@@ -1366,4 +1380,53 @@ export class Complex {
         return !(this.isNaN() || this.isFinite());
     }
 };
+
+
+export const ComplexArithmetics: NormedDivisionRing<Complex, number> = {
+
+    [symbols.AdditiveGroup]: true,
+    [symbols.Ring]: true,
+    [symbols.DivisionRing]: true,
+    [symbols.VectorSpace]: true,
+    [symbols.NormedVectorSpace]: true,
+    [symbols.NormedDivisionRing]: true,
+
+    isCommutative: true,
+
+    zero() { return Complex.ZERO.clone() },
+    one() { return Complex.ONE.clone() },
+    epsilon() { return new Complex(Complex.EPSILON) },
+
+    fromNumber(a: number) { return new Complex(a); },
+    fromReal(a: number) { return new Complex(a); },
+
+    real(z: Complex) { return z.re; },
+    imag(z: Complex) { return new Complex(0, z.im); },
+
+    conj(z: Complex) { return z.conjugate(); },
+    neg(z: Complex) { return z.neg(); },
+    inv(z: Complex) { return z.inverse(); },
+
+    add(z: Complex, w: Complex) { return z.add(w); },
+    sub(z: Complex, w: Complex) { return z.sub(w); },
+    mul(z: Complex, w: Complex) { return z.mul(w); },
+    div(z: Complex, w: Complex) { return z.div(w); },
+
+    pow(z: Complex, w: number | Complex) { return z.pow(w as any); },
+    exp(z: Complex) { return z.exp(); },
+    expm1(z: Complex) { return z.expm1(); },
+
+    normSq({re, im}: Complex) { return re * re + im * im; },
+    norm(z: Complex) { return z.abs() },
+    scale(z: Complex, s: number) { return z.mul(s); },
+
+    isNaN(z: Complex) { return z.isNaN(); },
+    isFinite(z: Complex) { return z.isFinite(); },
+    equals(z: Complex, w: Complex) { return z.equals(w); },
+
+    approximatelyEquals(z: Complex, w: Complex, epsilon: number) {
+        return z.sub(w).abs() < epsilon
+    }
+
+}
 
